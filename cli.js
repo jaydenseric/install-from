@@ -6,7 +6,8 @@ const { installFrom } = require('.')
 
 const [, , pathPackageFrom] = process.argv
 
-if (!pathPackageFrom)
-  throw new Error('Missing argument for the path to the package to install.')
-
-installFrom(pathPackageFrom)
+if (pathPackageFrom) installFrom(pathPackageFrom)
+else {
+  console.error('Missing argument for the path to the package to install.')
+  process.exitCode = 1
+}

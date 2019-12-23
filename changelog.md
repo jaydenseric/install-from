@@ -20,6 +20,7 @@
 - Stop using [`husky`](https://npm.im/husky) and [`lint-staged`](https://npm.im/lint-staged).
 - Fixed the package `files` field.
 - Use strict mode for scripts.
+- The `install-from` CLI exits more gracefully when no arguments are used.
 - Test Node.js v13 in CI.
 - Rename a variable in tests.
 
