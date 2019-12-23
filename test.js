@@ -14,9 +14,9 @@ const FIXTURES_PATH = './fixtures'
 const TEMP_PATH_API = './fixtures-temp-api'
 const TEMP_PATH_CLI = './fixtures-temp-cli'
 
-const testDirector = new TestDirector()
+const tests = new TestDirector()
 
-testDirector.add('JS API.', async () => {
+tests.add('JS API.', async () => {
   try {
     await copy(FIXTURES_PATH, TEMP_PATH_API)
 
@@ -39,7 +39,7 @@ testDirector.add('JS API.', async () => {
   }
 })
 
-testDirector.add('CLI.', async () => {
+tests.add('CLI.', async () => {
   try {
     await copy(FIXTURES_PATH, TEMP_PATH_CLI)
 
@@ -70,4 +70,4 @@ testDirector.add('CLI.', async () => {
   }
 })
 
-testDirector.run()
+tests.run()

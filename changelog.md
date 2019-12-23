@@ -20,6 +20,7 @@
 - Fixed the package `files` field.
 - Use strict mode for scripts.
 - Test Node.js v13 in CI.
+- Rename a variable in tests.
 
 ## 1.0.0
 
