@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict'
+
 const { installFrom } = require('.')
 
 const [, , pathPackageFrom] = process.argv
