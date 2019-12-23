@@ -22,6 +22,7 @@
 - Fixed the package `files` field.
 - Use strict mode for scripts.
 - The `install-from` CLI exits more gracefully when no arguments are used.
+- Use destructuring for imports.
 - Test Node.js v13 in CI.
 - Refactored and improved tests.
 

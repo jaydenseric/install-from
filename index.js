@@ -1,11 +1,11 @@
 'use strict'
 
 const { exec } = require('child_process')
-const path = require('path')
-const util = require('util')
+const { resolve } = require('path')
+const { promisify } = require('util')
 const { remove } = require('fs-extra')
 
-const execAsync = util.promisify(exec)
+const execAsync = promisify(exec)
 
 /**
  * Reliably installs a local package into another, for testing.
@@ -34,11 +34,8 @@ exports.installFrom = async function installFrom(
   pathPackageTo = process.cwd()
 ) {
   // Determine the package pack path.
-  const { name, version } = require(path.resolve(
-    pathPackageFrom,
-    'package.json'
-  ))
-  const pathPack = path.resolve(pathPackageFrom, `${name}-${version}.tgz`)
+  const { name, version } = require(resolve(pathPackageFrom, 'package.json'))
+  const pathPack = resolve(pathPackageFrom, `${name}-${version}.tgz`)
 
   // Pack the package.
   await execAsync(`cd ${pathPackageFrom} && npm pack`)
