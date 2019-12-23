@@ -14,6 +14,7 @@
 
 ### Patch
 
+- Stop using [`husky`](https://npm.im/husky) and [`lint-staged`](https://npm.im/lint-staged).
 - Fixed the package `files` field.
 - Test Node.js v13 in CI.
 
