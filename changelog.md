@@ -9,6 +9,7 @@
 ### Patch
 
 - Fixed the package `files` field.
+- Test Node.js v13 in CI.
 
 ## 1.0.0
 
