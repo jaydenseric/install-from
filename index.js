@@ -13,6 +13,7 @@ const execAsync = promisify(exec)
  * @name installFrom
  * @param {string} pathPackageFrom Absolute or CWD relative filesystem path to the package to install from.
  * @param {string} [pathPackageTo] Absolute or CWD relative filesystem path to the package to install to, defaulting to `process.cwd()`.
+ * @returns {Promise<void>} Resolves once installation is complete.
  * @example <caption>Install a package into another.</caption>
  * ```js
  * const { installFrom } = require('install-from')

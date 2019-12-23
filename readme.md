@@ -34,6 +34,8 @@ Reliably installs a local package into another, for testing.
 | `pathPackageFrom` | string | Absolute or CWD relative filesystem path to the package to install from. |
 | `pathPackageTo` | string? | Absolute or CWD relative filesystem path to the package to install to, defaulting to `process.cwd()`. |
 
+**Returns:** Promise&lt;void> — Resolves once installation is complete.
+
 #### Examples
 
 _Install a package into another._

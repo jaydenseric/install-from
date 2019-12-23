@@ -25,6 +25,7 @@
 - Use destructuring for imports.
 - Test Node.js v13 in CI.
 - Refactored and improved tests.
+- Documented what the `installFrom` function returns.
 
 ## 1.0.0
 
