@@ -1,11 +1,11 @@
 'use strict'
 
-const { exec } = require('child_process')
+const { execFile } = require('child_process')
 const { resolve } = require('path')
 const { promisify } = require('util')
 const { remove } = require('fs-extra')
 
-const execAsync = promisify(exec)
+const execFilePromise = promisify(execFile)
 
 /**
  * Reliably installs a local package into another, for testing.
@@ -39,10 +39,12 @@ exports.installFrom = async function installFrom(
   const pathPack = resolve(pathPackageFrom, `${name}-${version}.tgz`)
 
   // Pack the package.
-  await execAsync(`cd ${pathPackageFrom} && npm pack`)
+  await execFilePromise('npm', ['pack'], { cwd: pathPackageFrom })
 
   // Install the packed package.
-  await execAsync(`cd ${pathPackageTo} && npm install ${pathPack} --no-save`)
+  await execFilePromise('npm', ['install', pathPack, '--no-save'], {
+    cwd: pathPackageTo
+  })
 
   // Delete the pack.
   await remove(pathPack)

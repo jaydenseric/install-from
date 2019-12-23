@@ -25,6 +25,7 @@
 - Use destructuring for imports.
 - Test Node.js v13 in CI.
 - Refactored and improved tests.
+- Use the Node.js `child_process` `execFile` API instead of `exec` in the `installFrom` function.
 - Documented what the `installFrom` function returns.
 
 ## 1.0.0
