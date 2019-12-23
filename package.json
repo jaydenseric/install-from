@@ -11,6 +11,7 @@
   "repository": "github:jaydenseric/install-from",
   "homepage": "https://github.com/jaydenseric/install-from#readme",
   "bugs": "https://github.com/jaydenseric/install-from/issues",
+  "funding": "https://github.com/sponsors/jaydenseric",
   "keywords": [
     "npm",
     "install",
