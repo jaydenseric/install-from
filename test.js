@@ -1,72 +1,75 @@
 'use strict'
 
 const assert = require('assert')
-const { exec } = require('child_process')
+const { spawnSync } = require('child_process')
 const path = require('path')
-const util = require('util')
-const { copy, remove } = require('fs-extra')
+const { remove } = require('fs-extra')
 const { TestDirector } = require('test-director')
 const { installFrom } = require('.')
 
-const execAsync = util.promisify(exec)
-
-const FIXTURES_PATH = './fixtures'
-const TEMP_PATH_API = './fixtures-temp-api'
-const TEMP_PATH_CLI = './fixtures-temp-cli'
+const PATH_PACKAGE_FROM = path.join(__dirname, 'fixtures', 'package-from')
+const PATH_PACKAGE_TO = path.join(__dirname, 'fixtures', 'package-to')
 
 const tests = new TestDirector()
 
-tests.add('JS API.', async () => {
+tests.add('`installFrom` function.', async () => {
   try {
-    await copy(FIXTURES_PATH, TEMP_PATH_API)
+    await installFrom(PATH_PACKAGE_FROM, PATH_PACKAGE_TO)
 
-    await installFrom(
-      path.resolve(TEMP_PATH_API, 'package-from'),
-      path.resolve(TEMP_PATH_API, 'package-to')
-    )
-
-    const { name } = require(path.resolve(
-      TEMP_PATH_API,
-      'package-to',
+    const { name } = require(path.join(
+      PATH_PACKAGE_TO,
       'node_modules',
       'package-from',
       'package.json'
     ))
 
-    assert(name, 'package-from')
+    assert.strictEqual(name, 'package-from')
   } finally {
-    await remove(TEMP_PATH_API)
+    await remove(path.join(PATH_PACKAGE_TO, 'node_modules'))
   }
 })
 
-tests.add('CLI.', async () => {
-  try {
-    await copy(FIXTURES_PATH, TEMP_PATH_CLI)
+tests.add('`install-from` CLI without arguments.', async () => {
+  const { stdout, stderr, status, error } = spawnSync(
+    'node',
+    [path.join(__dirname, 'cli')],
+    { cwd: PATH_PACKAGE_TO }
+  )
 
-    // Install the local version of `install-from` in the test package,
-    // otherwise npx will attempt to pull it down from the public registry. Then
-    // use npx to test the CLI.
-    await execAsync(
-      `cd ${path.resolve(
-        TEMP_PATH_CLI,
-        'package-to'
-      )} && npm install ../.. && npx install-from ${path.resolve(
-        TEMP_PATH_CLI,
-        'package-from'
-      )}`
+  if (error) throw error
+
+  assert.strictEqual(stdout.toString(), '')
+  assert.strictEqual(
+    stderr.toString(),
+    'Missing argument for the path to the package to install.\n'
+  )
+  assert.strictEqual(status, 1)
+})
+
+tests.add('`install-from` CLI with arguments.', async () => {
+  try {
+    const { stdout, stderr, status, error } = spawnSync(
+      'node',
+      [path.join(__dirname, 'cli'), PATH_PACKAGE_FROM],
+      { cwd: PATH_PACKAGE_TO }
     )
 
-    const { name } = require(path.resolve(
-      TEMP_PATH_CLI,
-      'package-to',
+    if (error) throw error
+
+    assert.strictEqual(stdout.toString(), '')
+    assert.strictEqual(stderr.toString(), '')
+    assert.strictEqual(status, 0)
+
+    const { name } = require(path.join(
+      PATH_PACKAGE_TO,
       'node_modules',
       'package-from',
       'package.json'
     ))
 
-    assert(name, 'package-from')
+    assert.strictEqual(name, 'package-from')
   } finally {
-    await remove(TEMP_PATH_CLI)
+    await remove(path.join(PATH_PACKAGE_TO, 'node_modules'))
   }
 })
 

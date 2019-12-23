@@ -22,7 +22,7 @@
 - Use strict mode for scripts.
 - The `install-from` CLI exits more gracefully when no arguments are used.
 - Test Node.js v13 in CI.
-- Rename a variable in tests.
+- Refactored and improved tests.
 
 ## 1.0.0
 
