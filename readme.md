@@ -32,7 +32,7 @@ Reliably installs a local package into another, for testing.
 | Parameter | Type | Description |
 | :-- | :-- | :-- |
 | `pathPackageFrom` | string | Absolute or CWD relative filesystem path to the package to install from. |
-| `pathPackageTo` | string | Absolute or CWD relative filesystem path to the package to install to. |
+| `pathPackageTo` | string? | Absolute or CWD relative filesystem path to the package to install to, defaulting to `process.cwd()`. |
 
 #### Examples
 

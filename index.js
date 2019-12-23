@@ -12,7 +12,7 @@ const execAsync = util.promisify(exec)
  * @kind function
  * @name installFrom
  * @param {string} pathPackageFrom Absolute or CWD relative filesystem path to the package to install from.
- * @param {string} pathPackageTo Absolute or CWD relative filesystem path to the package to install to.
+ * @param {string} [pathPackageTo] Absolute or CWD relative filesystem path to the package to install to, defaulting to `process.cwd()`.
  * @example <caption>Install a package into another.</caption>
  * ```js
  * const { installFrom } = require('install-from')
@@ -31,7 +31,7 @@ const execAsync = util.promisify(exec)
  */
 exports.installFrom = async function installFrom(
   pathPackageFrom,
-  pathPackageTo
+  pathPackageTo = process.cwd()
 ) {
   // Determine the package pack path.
   const { name, version } = require(path.resolve(
