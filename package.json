@@ -21,7 +21,7 @@
   ],
   "files": [
     "cli.js",
-    "main.js"
+    "index.js"
   ],
   "bin": "cli.js",
   "main": "index.js",
