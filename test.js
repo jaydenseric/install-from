@@ -13,15 +13,17 @@ const tests = new TestDirector()
 
 tests.add('`installFrom` function.', async () => {
   await disposableDirectory(async tempDirPath => {
-    const packageFromPath = join(tempDirPath, 'package-from')
-    const packageToPath = join(tempDirPath, 'package-to')
+    const packageFromName = 'package-from'
+    const packageToName = 'package-to'
+    const packageFromPath = join(tempDirPath, packageFromName)
+    const packageToPath = join(tempDirPath, packageToName)
 
     await fs.promises.mkdir(packageFromPath)
     await fs.promises.writeFile(
       join(packageFromPath, 'package.json'),
       JSON.stringify(
         {
-          name: 'package-from',
+          name: packageFromName,
           version: '0.0.0',
           private: true
         },
@@ -36,7 +38,7 @@ tests.add('`installFrom` function.', async () => {
       join(packageToPath, 'package.json'),
       JSON.stringify(
         {
-          name: 'package-to',
+          name: packageToName,
           version: '0.0.0',
           private: true
         },
@@ -50,14 +52,14 @@ tests.add('`installFrom` function.', async () => {
     const { name } = require(join(
       packageToPath,
       'node_modules',
-      'package-from',
+      packageFromName,
       'package.json'
     ))
 
-    strictEqual(name, 'package-from')
+    strictEqual(name, packageFromName)
     strictEqual(
       await fs.promises.readFile(
-        join(packageToPath, 'node_modules', 'package-from', 'index.js'),
+        join(packageToPath, 'node_modules', packageFromName, 'index.js'),
         'utf8'
       ),
       '// From'
@@ -67,15 +69,17 @@ tests.add('`installFrom` function.', async () => {
 
 tests.add('`install-from` CLI without arguments.', async () => {
   await disposableDirectory(async tempDirPath => {
-    const packageFromPath = join(tempDirPath, 'package-from')
-    const packageToPath = join(tempDirPath, 'package-to')
+    const packageFromName = 'package-from'
+    const packageToName = 'package-to'
+    const packageFromPath = join(tempDirPath, packageFromName)
+    const packageToPath = join(tempDirPath, packageToName)
 
     await fs.promises.mkdir(packageFromPath)
     await fs.promises.writeFile(
       join(packageFromPath, 'package.json'),
       JSON.stringify(
         {
-          name: 'package-from',
+          name: packageFromName,
           version: '0.0.0',
           private: true
         },
@@ -90,7 +94,7 @@ tests.add('`install-from` CLI without arguments.', async () => {
       join(packageToPath, 'package.json'),
       JSON.stringify(
         {
-          name: 'package-to',
+          name: packageToName,
           version: '0.0.0',
           private: true
         },
@@ -116,15 +120,17 @@ tests.add('`install-from` CLI without arguments.', async () => {
 
 tests.add('`install-from` CLI with arguments.', async () => {
   await disposableDirectory(async tempDirPath => {
-    const packageFromPath = join(tempDirPath, 'package-from')
-    const packageToPath = join(tempDirPath, 'package-to')
+    const packageFromName = 'package-from'
+    const packageToName = 'package-to'
+    const packageFromPath = join(tempDirPath, packageFromName)
+    const packageToPath = join(tempDirPath, packageToName)
 
     await fs.promises.mkdir(packageFromPath)
     await fs.promises.writeFile(
       join(packageFromPath, 'package.json'),
       JSON.stringify(
         {
-          name: 'package-from',
+          name: packageFromName,
           version: '0.0.0',
           private: true
         },
@@ -139,7 +145,7 @@ tests.add('`install-from` CLI with arguments.', async () => {
       join(packageToPath, 'package.json'),
       JSON.stringify(
         {
-          name: 'package-to',
+          name: packageToName,
           version: '0.0.0',
           private: true
         },
@@ -163,14 +169,14 @@ tests.add('`install-from` CLI with arguments.', async () => {
     const { name } = require(join(
       packageToPath,
       'node_modules',
-      'package-from',
+      packageFromName,
       'package.json'
     ))
 
-    strictEqual(name, 'package-from')
+    strictEqual(name, packageFromName)
     strictEqual(
       await fs.promises.readFile(
-        join(packageToPath, 'node_modules', 'package-from', 'index.js'),
+        join(packageToPath, 'node_modules', packageFromName, 'index.js'),
         'utf8'
       ),
       '// From'
