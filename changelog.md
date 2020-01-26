@@ -1,6 +1,6 @@
 # install-from changelog
 
-## Next
+## 2.0.1
 
 ### Patch
 
