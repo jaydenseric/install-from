@@ -36,7 +36,12 @@ exports.installFrom = async function installFrom(
 ) {
   // Determine the package pack path.
   const { name, version } = require(resolve(pathPackageFrom, 'package.json'))
-  const pathPack = resolve(pathPackageFrom, `${name}-${version}.tgz`)
+  const pathPack = resolve(
+    pathPackageFrom,
+
+    // Account for a potentially scoped package name.
+    `${name.replace('@', '').replace('/', '-')}-${version}.tgz`
+  )
 
   // Pack the package.
   await execFilePromise('npm', ['pack'], { cwd: pathPackageFrom })

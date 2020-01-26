@@ -7,6 +7,7 @@
 - Updated dev dependencies.
 - Added a new [`hard-rejection`](https://npm.im/hard-rejection) dev dependency to ensure unhandled rejections in tests exit the process with an error.
 - Use [`disposable-directory`](https://npm.im/disposable-directory) to create test fixtures on demand.
+- Support installing scoped packages.
 
 ## 2.0.0
 
