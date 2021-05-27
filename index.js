@@ -1,11 +1,11 @@
-'use strict'
+'use strict';
 
-const { execFile } = require('child_process')
-const { resolve } = require('path')
-const { promisify } = require('util')
-const { remove } = require('fs-extra')
+const { execFile } = require('child_process');
+const { resolve } = require('path');
+const { promisify } = require('util');
+const { remove } = require('fs-extra');
 
-const execFilePromise = promisify(execFile)
+const execFilePromise = promisify(execFile);
 
 /**
  * Reliably installs a local package into another, for testing.
@@ -16,7 +16,7 @@ const execFilePromise = promisify(execFile)
  * @returns {Promise<void>} Resolves once installation is complete.
  * @example <caption>Install a package into another.</caption>
  * ```js
- * const { installFrom } = require('install-from')
+ * const { installFrom } = require('install-from');
  *
  * installFrom(
  *   './packages/package-to-install-from',
@@ -27,7 +27,7 @@ const execFilePromise = promisify(execFile)
  *   })
  *   .catch(() => {
  *     // …
- *   })
+ *   });
  * ```
  */
 exports.installFrom = async function installFrom(
@@ -35,22 +35,22 @@ exports.installFrom = async function installFrom(
   pathPackageTo = process.cwd()
 ) {
   // Determine the package pack path.
-  const { name, version } = require(resolve(pathPackageFrom, 'package.json'))
+  const { name, version } = require(resolve(pathPackageFrom, 'package.json'));
   const pathPack = resolve(
     pathPackageFrom,
 
     // Account for a potentially scoped package name.
     `${name.replace('@', '').replace('/', '-')}-${version}.tgz`
-  )
+  );
 
   // Pack the package.
-  await execFilePromise('npm', ['pack'], { cwd: pathPackageFrom })
+  await execFilePromise('npm', ['pack'], { cwd: pathPackageFrom });
 
   // Install the packed package.
   await execFilePromise('npm', ['install', pathPack, '--no-save'], {
     cwd: pathPackageTo
-  })
+  });
 
   // Delete the pack.
-  await remove(pathPack)
-}
+  await remove(pathPack);
+};

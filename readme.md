@@ -41,7 +41,7 @@ Reliably installs a local package into another, for testing.
 _Install a package into another._
 
 > ```js
-> const { installFrom } = require('install-from')
+> const { installFrom } = require('install-from');
 >
 > installFrom(
 >   './packages/package-to-install-from',
@@ -52,5 +52,5 @@ _Install a package into another._
 >   })
 >   .catch(() => {
 >     // …
->   })
+>   });
 > ```

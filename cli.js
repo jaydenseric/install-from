@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
-'use strict'
+'use strict';
 
-const { installFrom } = require('.')
+const { installFrom } = require('.');
 
-const [, , pathPackageFrom] = process.argv
+const [, , pathPackageFrom] = process.argv;
 
-if (pathPackageFrom) installFrom(pathPackageFrom)
+if (pathPackageFrom) installFrom(pathPackageFrom);
 else {
-  console.error('Missing argument for the path to the package to install.')
-  process.exitCode = 1
+  console.error('Missing argument for the path to the package to install.');
+  process.exitCode = 1;
 }
