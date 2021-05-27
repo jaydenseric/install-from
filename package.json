@@ -27,7 +27,7 @@
   "bin": "cli.js",
   "main": "index.js",
   "engines": {
-    "node": ">=10"
+    "node": "^12.20 || >= 14.13"
   },
   "dependencies": {
     "fs-extra": "^8.1.0"
