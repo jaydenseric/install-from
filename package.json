@@ -18,7 +18,9 @@
     "local",
     "package",
     "dev",
-    "test"
+    "test",
+    "esm",
+    "mjs"
   ],
   "files": [
     "cli",
