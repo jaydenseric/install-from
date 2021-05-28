@@ -7,7 +7,7 @@ import disposableDirectory from 'disposable-directory';
 import TestDirector from 'test-director';
 import installFrom from './index.mjs';
 
-const cliPath = fileURLToPath(new URL('cli.mjs', import.meta.url));
+const cliPath = fileURLToPath(new URL('cli/install-from.mjs', import.meta.url));
 const tests = new TestDirector();
 
 tests.add('`installFrom` function with a non-scoped package.', async () => {

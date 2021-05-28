@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import installFrom from './index.mjs';
+import installFrom from '../index.mjs';
 
 const [, , pathPackageFrom] = process.argv;
 

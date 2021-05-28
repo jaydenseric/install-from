@@ -25,6 +25,8 @@
 - Improved the package `test:prettier` script.
 - Configured Prettier option `semi` to the default, `true`.
 - Simplified the ESLint config.
+- More specific package `bin` field.
+- Updated CLI module file structure.
 - Removed `npm-debug.log` from the `.gitignore` file as npm [v4.2.0](https://github.com/npm/npm/releases/tag/v4.2.0)+ doesn’t create it in the current working directory.
 - Updated the EditorConfig.
 

@@ -21,11 +21,13 @@
     "test"
   ],
   "files": [
-    "cli.mjs",
+    "cli",
     "index.mjs"
   ],
-  "bin": "cli.mjs",
   "main": "index.mjs",
+  "bin": {
+    "install-from": "cli/install-from.mjs"
+  },
   "engines": {
     "node": "^12.20 || >= 14.13"
   },
