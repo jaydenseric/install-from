@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 
-'use strict';
-
-const { installFrom } = require('.');
+import installFrom from './index.mjs';
 
 const [, , pathPackageFrom] = process.argv;
 

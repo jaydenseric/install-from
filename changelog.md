@@ -5,6 +5,10 @@
 ### Major
 
 - Updated Node.js support to `^12.20 || >= 14.13`.
+- Updated dev dependencies, some of which require newer Node.js versions than were previously supported.
+- The API is now ESM in `.mjs` files instead of CJS in `.js` files, [accessible via `import` but not `require`](https://nodejs.org/dist/latest/docs/api/esm.html#esm_require).
+- The function `installFrom` is now a default export.
+- The tests are now ESM in a `.mjs` file instead of CJS in a `.js` file.
 
 ### Patch
 
@@ -16,6 +20,9 @@
   - Use the simpler [`npm install-test`](https://docs.npmjs.com/cli/v7/commands/npm-install-test) command.
   - Don’t specify the `CI` environment variable as it’s set by default.
 - Stop using [`hard-rejection`](https://npm.im/hard-rejection) to detect unhandled `Promise` rejections in tests, as Node.js v15+ does this natively.
+- Simplified JSDoc related package scripts now that [`jsdoc-md`](https://npm.im/jsdoc-md) v10+ automatically generates a Prettier formatted readme.
+- Added a package `test:jsdoc` script that checks the readme API docs are up to date with the source JSDoc.
+- Improved the package `test:prettier` script.
 - Configured Prettier option `semi` to the default, `true`.
 - Removed `npm-debug.log` from the `.gitignore` file as npm [v4.2.0](https://github.com/npm/npm/releases/tag/v4.2.0)+ doesn’t create it in the current working directory.
 - Updated the EditorConfig.

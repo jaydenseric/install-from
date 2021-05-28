@@ -1,18 +1,17 @@
-'use strict';
+import { strictEqual } from 'assert';
+import { spawnSync } from 'child_process';
+import fs from 'fs';
+import { join } from 'path';
+import { fileURLToPath } from 'url';
+import disposableDirectory from 'disposable-directory';
+import TestDirector from 'test-director';
+import installFrom from './index.mjs';
 
-const { strictEqual } = require('assert');
-const { spawnSync } = require('child_process');
-const fs = require('fs');
-const { join, resolve } = require('path');
-const { disposableDirectory } = require('disposable-directory');
-const { TestDirector } = require('test-director');
-const { installFrom } = require('.');
-
-const cliPath = resolve(__dirname, 'cli');
+const cliPath = fileURLToPath(new URL('cli.mjs', import.meta.url));
 const tests = new TestDirector();
 
 tests.add('`installFrom` function with a non-scoped package.', async () => {
-  await disposableDirectory(async tempDirPath => {
+  await disposableDirectory(async (tempDirPath) => {
     const packageFromName = 'package-from';
     const packageToName = 'package-to';
     const packageFromPath = join(tempDirPath, packageFromName);
@@ -25,7 +24,7 @@ tests.add('`installFrom` function with a non-scoped package.', async () => {
         {
           name: packageFromName,
           version: '0.0.0',
-          private: true
+          private: true,
         },
         null,
         2
@@ -40,7 +39,7 @@ tests.add('`installFrom` function with a non-scoped package.', async () => {
         {
           name: packageToName,
           version: '0.0.0',
-          private: true
+          private: true,
         },
         null,
         2
@@ -49,12 +48,12 @@ tests.add('`installFrom` function with a non-scoped package.', async () => {
 
     await installFrom(packageFromPath, packageToPath);
 
-    const { name } = require(join(
-      packageToPath,
-      'node_modules',
-      packageFromName,
-      'package.json'
-    ));
+    const { name } = JSON.parse(
+      await fs.promises.readFile(
+        join(packageToPath, 'node_modules', packageFromName, 'package.json'),
+        'utf8'
+      )
+    );
 
     strictEqual(name, packageFromName);
     strictEqual(
@@ -68,7 +67,7 @@ tests.add('`installFrom` function with a non-scoped package.', async () => {
 });
 
 tests.add('`installFrom` function with a scoped package.', async () => {
-  await disposableDirectory(async tempDirPath => {
+  await disposableDirectory(async (tempDirPath) => {
     const packageFromNameScope = '@scope-from';
     const packageFromNameName = 'package-from';
     const packageFromName = `${packageFromNameScope}/${packageFromNameName}`;
@@ -84,7 +83,7 @@ tests.add('`installFrom` function with a scoped package.', async () => {
         {
           name: packageFromName,
           version: '0.0.0',
-          private: true
+          private: true,
         },
         null,
         2
@@ -99,7 +98,7 @@ tests.add('`installFrom` function with a scoped package.', async () => {
         {
           name: packageToName,
           version: '0.0.0',
-          private: true
+          private: true,
         },
         null,
         2
@@ -108,13 +107,18 @@ tests.add('`installFrom` function with a scoped package.', async () => {
 
     await installFrom(packageFromPath, packageToPath);
 
-    const { name } = require(join(
-      packageToPath,
-      'node_modules',
-      packageFromNameScope,
-      packageFromNameName,
-      'package.json'
-    ));
+    const { name } = JSON.parse(
+      await fs.promises.readFile(
+        join(
+          packageToPath,
+          'node_modules',
+          packageFromNameScope,
+          packageFromNameName,
+          'package.json'
+        ),
+        'utf8'
+      )
+    );
 
     strictEqual(name, packageFromName);
     strictEqual(
@@ -134,7 +138,7 @@ tests.add('`installFrom` function with a scoped package.', async () => {
 });
 
 tests.add('`install-from` CLI without arguments.', async () => {
-  await disposableDirectory(async tempDirPath => {
+  await disposableDirectory(async (tempDirPath) => {
     const packageFromName = 'package-from';
     const packageToName = 'package-to';
     const packageFromPath = join(tempDirPath, packageFromName);
@@ -147,7 +151,7 @@ tests.add('`install-from` CLI without arguments.', async () => {
         {
           name: packageFromName,
           version: '0.0.0',
-          private: true
+          private: true,
         },
         null,
         2
@@ -162,7 +166,7 @@ tests.add('`install-from` CLI without arguments.', async () => {
         {
           name: packageToName,
           version: '0.0.0',
-          private: true
+          private: true,
         },
         null,
         2
@@ -170,7 +174,7 @@ tests.add('`install-from` CLI without arguments.', async () => {
     );
 
     const { stdout, stderr, status, error } = spawnSync('node', [cliPath], {
-      cwd: packageToPath
+      cwd: packageToPath,
     });
 
     if (error) throw error;
@@ -185,7 +189,7 @@ tests.add('`install-from` CLI without arguments.', async () => {
 });
 
 tests.add('`install-from` CLI with arguments.', async () => {
-  await disposableDirectory(async tempDirPath => {
+  await disposableDirectory(async (tempDirPath) => {
     const packageFromName = 'package-from';
     const packageToName = 'package-to';
     const packageFromPath = join(tempDirPath, packageFromName);
@@ -198,7 +202,7 @@ tests.add('`install-from` CLI with arguments.', async () => {
         {
           name: packageFromName,
           version: '0.0.0',
-          private: true
+          private: true,
         },
         null,
         2
@@ -213,7 +217,7 @@ tests.add('`install-from` CLI with arguments.', async () => {
         {
           name: packageToName,
           version: '0.0.0',
-          private: true
+          private: true,
         },
         null,
         2
@@ -232,12 +236,12 @@ tests.add('`install-from` CLI with arguments.', async () => {
     strictEqual(stderr.toString(), '');
     strictEqual(status, 0);
 
-    const { name } = require(join(
-      packageToPath,
-      'node_modules',
-      packageFromName,
-      'package.json'
-    ));
+    const { name } = JSON.parse(
+      await fs.promises.readFile(
+        join(packageToPath, 'node_modules', packageFromName, 'package.json'),
+        'utf8'
+      )
+    );
 
     strictEqual(name, packageFromName);
     strictEqual(

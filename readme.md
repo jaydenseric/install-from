@@ -21,10 +21,6 @@ To test changes, run the command again.
 
 ## API
 
-### Table of contents
-
-- [function installFrom](#function-installfrom)
-
 ### function installFrom
 
 Reliably installs a local package into another, for testing.
@@ -34,15 +30,19 @@ Reliably installs a local package into another, for testing.
 | `pathPackageFrom` | string | Absolute or CWD relative filesystem path to the package to install from. |
 | `pathPackageTo` | string? | Absolute or CWD relative filesystem path to the package to install to, defaulting to `process.cwd()`. |
 
-**Returns:** Promise&lt;void> — Resolves once installation is complete.
+**Returns:** Promise\<void> — Resolves once installation is complete.
 
 #### Examples
+
+_How to `import`._
+
+> ```js
+> import installFrom from 'install-from';
+> ```
 
 _Install a package into another._
 
 > ```js
-> const { installFrom } = require('install-from');
->
 > installFrom(
 >   './packages/package-to-install-from',
 >   './packages/package-to-install-to'
