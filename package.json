@@ -27,6 +27,11 @@
     "index.mjs"
   ],
   "main": "index.mjs",
+  "exports": {
+    ".": "./index.mjs",
+    "./package": "./package.json",
+    "./package.json": "./package.json"
+  },
   "bin": {
     "install-from": "cli/install-from.mjs"
   },

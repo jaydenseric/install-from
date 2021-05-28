@@ -9,6 +9,7 @@
 - The API is now ESM in `.mjs` files instead of CJS in `.js` files, [accessible via `import` but not `require`](https://nodejs.org/dist/latest/docs/api/esm.html#esm_require).
 - The function `installFrom` is now a default export.
 - The tests are now ESM in `.mjs` files instead of CJS in a `.js` file.
+- Added a package `exports` field.
 
 ### Patch
 
