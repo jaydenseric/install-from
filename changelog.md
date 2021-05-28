@@ -24,6 +24,7 @@
 - Added a package `test:jsdoc` script that checks the readme API docs are up to date with the source JSDoc.
 - Improved the package `test:prettier` script.
 - Configured Prettier option `semi` to the default, `true`.
+- Simplified the ESLint config.
 - Removed `npm-debug.log` from the `.gitignore` file as npm [v4.2.0](https://github.com/npm/npm/releases/tag/v4.2.0)+ doesn’t create it in the current working directory.
 - Updated the EditorConfig.
 
